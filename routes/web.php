@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Route::middleware([
@@ -34,4 +34,8 @@ Route::middleware([
     Route::get('/schedules', [
         PageController::class, 'schedules'
     ])->name('schedules.index');
+
+    Route::get('/{roomId}/bundy', [
+        PageController::class, 'bundy'
+    ])->name('room.clockIn');
 });
