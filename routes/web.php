@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,4 +26,12 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/scan', [
+        PageController::class, 'scan'
+    ])->name('scan.index');
+
+    Route::get('/schedules', [
+        PageController::class, 'schedules'
+    ])->name('schedules.index');
 });

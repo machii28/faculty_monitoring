@@ -6,14 +6,17 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-mark class="block h-9 w-auto" />
+                        <img src="/image/logo.png" width="50px" height="50px" alt="">
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-nav-link href="{{ route('scan.index') }}" :active="request()->routeIs('scan.index')">
+                        {{ __('Scan') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('schedules.index') }}" :active="request()->routeIs('schedules.index')">
+                        {{ __('Schedules') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -139,8 +142,11 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+            <x-responsive-nav-link href="{{ route('scan.index') }}" :active="request()->routeIs('scan.index')">
+                {{ __('Scan') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('schedules.index') }}" :active="request()->routeIs('schedules.index')">
+                {{ __('Schedules') }}
             </x-responsive-nav-link>
         </div>
 

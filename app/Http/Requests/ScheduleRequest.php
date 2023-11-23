@@ -25,7 +25,14 @@ class ScheduleRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'subject_id' => 'required',
+            'room_id' => 'required',
+            'user_id' => 'required',
+            'year' => 'required',
+            'semester' => 'required',
+            'start_time' => 'required',
+            'end_time' => 'required',
+            'day' => 'required'
         ];
     }
 
