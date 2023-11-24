@@ -78,6 +78,8 @@ class RoomCrudController extends CrudController
         CRUD::setValidation(RoomRequest::class);
         CRUD::setFromDb(); // set fields from db columns.
 
+        $this->crud->removeField('qr_code_path');
+
         /**
          * Fields can be defined using the fluent syntax:
          * - CRUD::field('price')->type('number');

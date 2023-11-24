@@ -28,23 +28,23 @@ class PageController extends Controller
     {
         $day = now()->timezone('Asia/Singapore')->format('l');
         $time = now()->timezone('Asia/Singapore')->toTimeString();
-//
-//        $schedule = Schedule::where('room_id', $roomId)
-//            ->where('user_id', auth()->id())
-//            ->first();
-//
-//        if (!$schedule) {
-//            return response()->json([
-//                'message' => 'No Schedule For This Room'
-//            ]);
-//        }
-//
-//        if ($schedule->day !== $day) {
-//            return response()->json([
-//                'message' => 'Its not your schedule'
-//            ]);
-//        }
-//
+
+        $schedule = Schedule::where('room_id', $roomId)
+            ->where('user_id', auth()->id())
+            ->first();
+
+        if (!$schedule) {
+            return response()->json([
+                'message' => 'No Schedule For This Room'
+            ]);
+        }
+
+        if ($schedule->day !== $day) {
+            return response()->json([
+                'message' => 'Its not your schedule'
+            ]);
+        }
+
 //        if (!($schedule->start_time <= $time && $schedule->end_time >= $time)) {
 //            return response()->json([
 //                'message' => 'Its not your schedule'
