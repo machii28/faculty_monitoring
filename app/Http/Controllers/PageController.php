@@ -65,7 +65,7 @@ class PageController extends Controller
             $attendance->save();
 
             return response()->json([
-                'message' => 'Clock In Successfully'
+                'message' => 'Time Recorded Successfully'
             ]);
         }
 
@@ -73,7 +73,7 @@ class PageController extends Controller
         $attendance->save();
 
         return response()->json([
-            'message' => 'Clock Out Successfully'
+            'message' => 'Time Recorded Successfully'
         ]);
     }
 }
