@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Operations\GenerateQRCodeOperation;
 use App\Http\Requests\RoomRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\URL;
 
 /**
  * Class RoomCrudController
@@ -56,7 +57,8 @@ class RoomCrudController extends CrudController
             'label' => 'QR Code',
             'type' => 'image',
             'width' => '100px',
-            'height' => '100px'
+            'height' => '100px',
+            'prefix' => URL::to('/')
         ]);
 
         /**
