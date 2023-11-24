@@ -26,9 +26,8 @@ class PageController extends Controller
 
     public function bundy($roomId, Request $request)
     {
-        Carbon::shiftTimezone('Asia/Singapore');
-        $day = now()->format('l');
-        $time = now()->toTimeString();
+        $day = now()->timezone('Asia/Singapore')->format('l');
+        $time = now()->timezone('Asia/Singapore')->toTimeString();
 
 //        $schedule = Schedule::where('room_id', $roomId)
 //            ->where('user_id', auth()->id())
