@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Attendance;
 use App\Models\Schedule;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -25,6 +26,7 @@ class PageController extends Controller
 
     public function bundy($roomId, Request $request)
     {
+        Carbon::shiftTimezone('Asia/Singapore');
         $day = now()->format('l');
         $time = now()->toTimeString();
 
