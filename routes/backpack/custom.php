@@ -22,4 +22,6 @@ Route::group([
     Route::crud('room', 'RoomCrudController');
     Route::crud('subject', 'SubjectCrudController');
     Route::crud('attendance', 'AttendanceCrudController');
+    Route::crud('booking', 'BookingCrudController');
+    Route::get('test', 'TestController@index')->name('page.test.index');
 }); // this should be the absolute last line of this file

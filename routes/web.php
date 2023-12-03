@@ -31,6 +31,10 @@ Route::middleware([
         PageController::class, 'scan'
     ])->name('scan.index');
 
+    Route::get('/bookings', [
+        PageController::class, 'bookings'
+    ])->name('bookings.index');
+
     Route::get('/schedules', [
         PageController::class, 'schedules'
     ])->name('schedules.index');

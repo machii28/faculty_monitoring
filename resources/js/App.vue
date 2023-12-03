@@ -33,7 +33,8 @@ export default {
             this.showScanConfirmation = true;
             this.paused = true;
 
-            await this.bundy(this.result);
+            let subjectCode = window.prompt('Enter Subject Code')
+            await this.bundy(this.result, subjectCode);
             await this.timeout(2000);
 
             this.paused = false;
@@ -63,9 +64,9 @@ export default {
             }
         },
 
-        async bundy(roomId) {
+        async bundy(roomId, subjectCode) {
             try {
-                await axios.get(`/${roomId}/bundy`).then((response) => {
+                await axios.get(`/${roomId}/bundy?subject=${subjectCode}`).then((response) => {
                     this.message = response.data.message;
                 });
             } catch (error) {
