@@ -90,12 +90,14 @@
                     <tbody class="text-gray-700">
                         @foreach ($rooms as $room)
                             @php
-                                $booking = \App\Models\Booking::where('room_id', $room->id)->first();
+                                $booking = \App\Models\Booking::where('room_id', $room->id)
+                                    ->where('booking_date', now()->toDateString())
+                                    ->first();
                             @endphp
 
                             <tr class="text-center">
                                 <td class="px-4 py-2">{{ $room->room_number }} - {{ $room->building_number }}</td>
-                                <td class="px-4 py-2">{{ $booking ? $booking->user->name : '' }}</td>
+                                <td class="px-4 py-2">{{ $room->is_occupied ? $booking->user->name : '' }}</td>
                                 <td class="px-4 py-2">
                                     @if ($room->is_occupied)
                                         <span class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">Occupied</span

@@ -75,7 +75,9 @@
         <div class="row">
             @foreach($rooms as $room)
                 @php
-                    $booking = \App\Models\Booking::where('room_id', $room->id)->first();
+                    $booking = \App\Models\Booking::where('room_id', $room->id)
+                                    ->where('booking_date', now()->toDateString())
+                                    ->first();
                 @endphp
 
                 <div class="col-lg-3 col-md-3">
@@ -83,7 +85,7 @@
                         <div class="cube">
                             <div class="cube__face cube__face--front @if($room->is_occupied) cube__face--occupied @else cube__face--available @endif">
                                 <span class="d-block mt-3">Room {{ $room->room_number }}</span>
-                                <span class="d-block">{{ $booking ? $booking->user->name : '' }}</span>
+                                <span class="d-block">{{ $room->is_occupied ? $booking->user->name : '' }}</span>
                                 <span class="d-block mt-3">
                                     @if ($room->is_occupied)
                                         Occupied
