@@ -14,8 +14,8 @@
                             <th class="px-4 py-2">Subject</th>
                             <th class="px-4 py-2">Room</th>
                             <th class="px-4 py-2">Day</th>
-                            <th class="px-4 py-2">Booked Time In</th>
-                            <th class="px-4 py-2">Booked Time Out</th>
+                            <th class="px-4 py-2">Time In</th>
+                            <th class="px-4 py-2">Time Out</th>
                         </tr>
                     </thead>
                     <tbody class="text-gray-700">
