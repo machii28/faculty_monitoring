@@ -28,7 +28,7 @@ class BookingCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Booking::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/booking');
-        CRUD::setEntityNameStrings('booking', 'bookings');
+        CRUD::setEntityNameStrings('attendance', 'attendances');
     }
 
     /**
@@ -42,6 +42,35 @@ class BookingCrudController extends CrudController
         CRUD::setFromDb(); // set columns from db columns.
 
         $this->crud->removeAllButtons();
+
+        $this->crud->setColumnDetails('user_id', [
+            'type' => 'select',
+            'attribute' => 'name',
+            'entity' => 'user',
+            'model' => 'App\Models\User'
+        ]);
+
+        $this->crud->setColumnDetails('subject_id', [
+            'type' => 'select',
+            'attribute' => 'code',
+            'entity' => 'subject',
+            'model' => 'App\Models\Subject'
+        ]);
+
+        $this->crud->setColumnDetails('room_id', [
+            'type' => 'select',
+            'attribute' => 'room_number',
+            'entity' => 'room',
+            'model' => 'App\Models\Room'
+        ]);
+
+        $this->crud->setColumnDetails('start_booking_time', [
+            'label' => 'Class Time In'
+        ]);
+
+        $this->crud->setColumnDetails('end_booking_time', [
+            'label' => 'Class Time Out'
+        ]);
 
         /**
          * Columns can be defined using the fluent syntax:

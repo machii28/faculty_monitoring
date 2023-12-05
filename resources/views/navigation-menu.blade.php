@@ -19,7 +19,7 @@
                         {{ __('Scan') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('bookings.index') }}" :active="request()->routeIs('bookings.index')">
-                        {{ __('Bookings') }}
+                        {{ __('Attendance') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -152,7 +152,7 @@
                 {{ __('Scan') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('bookings.index') }}" :active="request()->routeIs('bookings.index')">
-                {{ __('Bookings') }}
+                {{ __('Attendance') }}
             </x-responsive-nav-link>
         </div>
 
