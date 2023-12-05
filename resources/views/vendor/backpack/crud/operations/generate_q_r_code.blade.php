@@ -16,6 +16,8 @@
                 <div class="card">
                     <div class="card-body">
                         <a href="{{ route('room.generate', ['roomId' => $roomId]) }}" class="btn btn-info">Generate QR</a>
+
+                        <a href="{{ route('room.print', ['roomId' => $roomId]) }}" class="btn btn-info">Print QR</a>
                     </div>
                 </div>
             </div>

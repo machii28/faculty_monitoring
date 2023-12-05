@@ -32,6 +32,12 @@ trait GenerateQRCodeOperation
             'uses' => $controller . '@generate',
             'operation' => 'generateQRCode'
         ]);
+
+        Route::get($segment . '/{roomId}/print', [
+            'as' => $routeName . '.print',
+            'uses' => $controller . '@print',
+            'operation' => 'generateQRCode'
+        ]);
     }
 
     /**
@@ -67,6 +73,17 @@ trait GenerateQRCodeOperation
 
         // load the view
         return view('crud::operations.generate_q_r_code', $this->data);
+    }
+
+    public function print($roomId)
+    {
+        $room = Room::where('id', $roomId)->first();
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('print', [
+            'room' => $room
+        ])->setPaper('a4', 'portrait');
+
+        return $pdf->stream('room-qr-'. $roomId .'.pdf');
     }
 
     public function generate($roomId)
