@@ -79,7 +79,7 @@ class PageController extends Controller
                 $room->save();
 
                 return response()->json([
-                    'message' => 'Time In Successfully'
+                    'message' => 'Time Out Successfully'
                 ]);
             }
         }
@@ -96,7 +96,7 @@ class PageController extends Controller
         $room->save();
 
         return response()->json([
-            'message' => 'Time Out Successfully'
+            'message' => 'Time In Successfully'
         ]);
     }
 }

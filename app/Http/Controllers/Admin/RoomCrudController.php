@@ -43,6 +43,8 @@ class RoomCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->orderBy('room_number', 'DESC');
+
         CRUD::addColumn([
             'name' => 'room_number',
             'type' => 'text'
