@@ -97,7 +97,7 @@
 
                             <tr class="text-center">
                                 <td class="px-4 py-2">{{ $room->room_number }} - {{ $room->building_number }}</td>
-                                <td class="px-4 py-2">{{ $room->is_occupied ? $booking->user->name : '' }}</td>
+                                <td class="px-4 py-2"><span class="block">@if ($booking){{ $room->is_occupied ? $booking->user->name : '' }}@endif</span></td>
                                 <td class="px-4 py-2">
                                     @if ($room->is_occupied)
                                         <span class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">Occupied</span
