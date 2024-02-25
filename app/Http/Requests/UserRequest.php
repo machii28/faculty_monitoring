@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Request;
 
 class UserRequest extends FormRequest
 {
@@ -24,9 +25,19 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            // 'name' => 'required|min:5|max:255'
+        $rules = [
+            'email' => 'required|email',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'role' => 'required'
         ];
+
+        if (Request::route()->getName() === 'user.create') {
+            $rules['password'] = 'required';
+            $rules['email'] = 'required|email|unique:users,email';
+        }
+
+        return $rules;
     }
 
     /**

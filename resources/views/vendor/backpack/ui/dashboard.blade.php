@@ -34,7 +34,7 @@
         }
 
         .cube__face--available   {
-            background: hsla(120, 100%, 50%, 0.7);
+            background: hsla(152, 95%, 35%, 0.7);
             color: black;
         }
         .cube__face--occupied    {

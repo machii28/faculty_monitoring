@@ -21,7 +21,7 @@ class SubjectCrudController extends CrudController
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
@@ -33,7 +33,7 @@ class SubjectCrudController extends CrudController
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
@@ -49,7 +49,7 @@ class SubjectCrudController extends CrudController
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
@@ -57,6 +57,13 @@ class SubjectCrudController extends CrudController
     {
         CRUD::setValidation(SubjectRequest::class);
         CRUD::setFromDb(); // set fields from db columns.
+
+        $this->crud->addField([
+            'name' => 'code',
+            'label' => 'Subject Code',
+            'type' => 'select_from_array',
+            'options' => config('subject_codes')
+        ]);
 
         /**
          * Fields can be defined using the fluent syntax:
@@ -66,7 +73,7 @@ class SubjectCrudController extends CrudController
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */

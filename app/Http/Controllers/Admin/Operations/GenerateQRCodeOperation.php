@@ -7,6 +7,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Prologue\Alerts\Facades\Alert;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -96,7 +97,11 @@ trait GenerateQRCodeOperation
             File::makeDirectory('../storage/app/public/qrcodes', 0777, true);
         }
 
-        QrCode::size(500)->generate($roomId, $path . $room->id . '.svg');
+        QrCode::color(7, 34, 209)
+            ->style('square')
+//            ->format('png')
+//            ->merge('/public/image/logo.png')
+            ->size(500)->generate($roomId, $path . $room->id . '.svg');
 
         $room->qr_code_path = '/qrcodes/' . $room->id . '.svg';
         $room->save();

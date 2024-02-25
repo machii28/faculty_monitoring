@@ -6,6 +6,7 @@ use App\Http\Requests\UserRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Request;
 
 /**
  * Class UserCrudController
@@ -40,12 +41,16 @@ class UserCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // set columns from db columns.
+        $this->crud->addColumn([
+            'name' => 'name',
+            'type' => 'model_function',
+            'function_name' => 'showFullName'
+        ]);
 
-        /**
-         * Columns can be defined using the fluent syntax:
-         * - CRUD::column('price')->type('number');
-         */
+        $this->crud->addColumn([
+            'name' => 'email',
+            'type' => 'email',
+        ]);
     }
 
     /**
@@ -57,7 +62,6 @@ class UserCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(UserRequest::class);
-        CRUD::setFromDb(); // set fields from db columns.
 
         $this->crud->addField([
             'name' => 'role',
@@ -67,6 +71,38 @@ class UserCrudController extends CrudController
                 'faculty' => 'Faculty'
             ]
         ]);
+
+        $this->crud->addField([
+            'name' => 'first_name',
+            'type' => 'text'
+        ]);
+
+        $this->crud->addField([
+            'name' => 'last_name',
+            'type' => 'text'
+        ]);
+
+        $this->crud->addField([
+            'name' => 'middle_initial',
+            'type' => 'text'
+        ]);
+
+        $this->crud->addField([
+            'name' => 'name_extension',
+            'type' => 'text'
+        ]);
+
+        $this->crud->addField([
+            'name' => 'email',
+            'text'
+        ]);
+
+        if (Request::route()->getName() !== 'user.edit') {
+            $this->crud->addField([
+                'name' => 'password',
+                'type' => 'text'
+            ]);
+        }
 
         /**
          * Fields can be defined using the fluent syntax:

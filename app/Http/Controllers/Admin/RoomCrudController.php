@@ -63,11 +63,6 @@ class RoomCrudController extends CrudController
             'height' => '100px',
             'prefix' => URL::to('/') . '/storage/'
         ]);
-
-        /**
-         * Columns can be defined using the fluent syntax:
-         * - CRUD::column('price')->type('number');
-         */
     }
 
     /**
@@ -82,11 +77,21 @@ class RoomCrudController extends CrudController
         CRUD::setFromDb(); // set fields from db columns.
 
         $this->crud->removeField('qr_code_path');
+        $this->crud->removeField('is_occupied');
 
-        /**
-         * Fields can be defined using the fluent syntax:
-         * - CRUD::field('price')->type('number');
-         */
+        $this->crud->addField([
+            'name' => 'building_number',
+            'label' => 'Building',
+            'type' => 'select_from_array',
+            'options' => config('buildings')
+        ]);
+
+        $this->crud->addField([
+            'name' => 'room_number',
+            'label' => 'Room',
+            'type' => 'select_from_array',
+            'options' => config('rooms')
+        ]);
     }
 
     /**
