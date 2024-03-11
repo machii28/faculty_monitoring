@@ -15,11 +15,10 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 class ScheduleCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation {create as createOperation;}
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-    use SetScheduleOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -28,7 +27,7 @@ class ScheduleCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\User::class);
+        CRUD::setModel(\App\Models\Schedule::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/schedule');
         CRUD::setEntityNameStrings('schedule', 'schedules');
     }
@@ -41,68 +40,53 @@ class ScheduleCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::denyaccess('delete');
-        CRUD::denyaccess('update');
-        CRUD::denyaccess('show');
-        CRUD::denyaccess('create');
+        $this->crud->column([
+            'label' => 'Subject',
+            'type' => 'select',
+            'name ' => 'subject_id',
+            'attribute' => 'name',
+            'entity' => 'subject'
+        ]);
 
-        $this->crud->addClause(function ($query) {
-            $query->where('role', 'faculty');
-        });
+        $this->crud->column([
+            'label' => 'Room',
+            'type' => 'select',
+            'name' => 'room_id',
+            'attribute' => 'room_number',
+            'entity' => 'room'
+        ]);
 
         $this->crud->column([
             'label' => 'Professor',
-            'type' => 'model_function',
-            'function_name' => 'showFullName'
+            'type' => 'select',
+            'name' => 'user_id',
+            'attribute' => 'full_name',
+            'entity' => 'user'
         ]);
 
-//        $this->crud->column([
-//            'label' => 'Subject',
-//            'type' => 'select',
-//            'name ' => 'subject_id',
-//            'attribute' => 'name',
-//            'entity' => 'subject'
-//        ]);
-//
-//        $this->crud->column([
-//            'label' => 'Room',
-//            'type' => 'select',
-//            'name' => 'room_id',
-//            'attribute' => 'room_number',
-//            'entity' => 'room'
-//        ]);
-//
-//        $this->crud->column([
-//            'label' => 'Professor',
-//            'type' => 'select',
-//            'name' => 'user_id',
-//            'attribute' => 'full_name',
-//            'entity' => 'user'
-//        ]);
-//
-//        $this->crud->column([
-//            'label' => 'Year Level',
-//            'type' => 'text',
-//            'name' => 'year',
-//        ]);
-//
-//        $this->crud->column([
-//            'label' => 'Semester',
-//            'type' => 'text',
-//            'name' => 'semester'
-//        ]);
-//
-//        $this->crud->column([
-//            'label' => 'Time of Day',
-//            'type' => 'text',
-//            'name' => 'time'
-//        ]);
-//
-//        $this->crud->column([
-//            'label' => 'Day of Week',
-//            'type' => 'text',
-//            'name' => 'day'
-//        ]);
+        $this->crud->column([
+            'label' => 'Year Level',
+            'type' => 'text',
+            'name' => 'year',
+        ]);
+
+        $this->crud->column([
+            'label' => 'Semester',
+            'type' => 'text',
+            'name' => 'semester'
+        ]);
+
+        $this->crud->column([
+            'label' => 'Time of Day',
+            'type' => 'text',
+            'name' => 'time'
+        ]);
+
+        $this->crud->column([
+            'label' => 'Day of Week',
+            'type' => 'text',
+            'name' => 'day'
+        ]);
 
         /**
          * Columns can be defined using the fluent syntax:
@@ -118,6 +102,8 @@ class ScheduleCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
+        $disabledUser = request()->source === 'view_schedule_operation' ? true : false;
+        $userId = request()->has('user_id') ? request()->user_id : null;
         CRUD::setValidation(ScheduleRequest::class);
 
         $this->crud->addField([
@@ -143,6 +129,10 @@ class ScheduleCrudController extends CrudController
             'options' => (function ($query) {
                 return $query->where('role', 'faculty')->get();
             }),
+            'default' => $userId,
+            'attributes' => [
+                'disabled' => $disabledUser
+            ]
         ]);
 
         $this->crud->addField([
@@ -188,11 +178,6 @@ class ScheduleCrudController extends CrudController
                 'Sunday' => 'Sunday'
             ]
         ]);
-
-        /**
-         * Fields can be defined using the fluent syntax:
-         * - CRUD::field('price')->type('number');
-         */
     }
 
     /**

@@ -41,11 +41,17 @@ class BookingCrudController extends CrudController
     {
         CRUD::setFromDb(); // set columns from db columns.
 
+        if (request()->has('room_id')) {
+            $this->crud->addClause(function ($query) {
+                $query->where('room_id', request()->get('room_id'));
+            });
+        }
+
         $this->crud->removeAllButtons();
 
         $this->crud->setColumnDetails('user_id', [
             'type' => 'select',
-            'attribute' => 'name',
+            'attribute' => 'full_name',
             'entity' => 'user',
             'model' => 'App\Models\User'
         ]);

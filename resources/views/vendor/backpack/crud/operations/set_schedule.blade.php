@@ -3,41 +3,77 @@
 @section('header')
     <section class="header-operation container-fluid animated fadeIn d-flex mb-2 align-items-baseline d-print-none">
         <h2>
-            <span class="text-capitalize mb-0">Set {{ $facultyName }} Schedule</span>
+            <span class="text-capitalize mb-0">{{ $facultyName }} Schedule</span>
         </h2>
     </section>
 @endsection
 
 @section('content')
     <div class="container-fluid animated fadeIn">
+        <!--        <a href="{{ route('schedule.create', ['source' => 'view_schedule_operation', 'user_id' => $userId]) }}" class="btn btn-sm btn-success text-white mb-3">Add Schedule</a>-->
+    <div class="dropdown mb-3">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="semesterDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                Select Semester
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="semesterDropdown">
+                <!-- Semester items will be loaded dynamically here -->
+                <li>
+                    <a href="{{ route('faculty.setSchedule', ['userId' => $userId, 'semester' => '1st Semester']) }}"
+                       class="dropdown-item">1st Semester</a>
+                </li>
+                <li>
+                    <a href="{{ route('faculty.setSchedule', ['userId' => $userId, 'semester' => '2nd Semester']) }}"
+                       class="dropdown-item">2nd Semester</a>
+                </li>
+            </ul>
+        </div>
+
         <div class="row table-content">
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
                         <table class="table table-striped">
                             <thead>
-                                <tr>
-                                    <th>Subject</th>
-                                    <th>Room</th>
-                                    <th>Time</th>
-                                    <th>Day</th>
-                                    <th>Semester</th>
-                                    <th>Year Level</th>
-                                </tr>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Room</th>
+                                <th>Time</th>
+                                <th>Day</th>
+                                <th>Year Level</th>
+                                <th>Attendance</th>
+                                <!--                                 <th>Action</th> -->
+                            </tr>
                             </thead>
                             <tbody>
-                                {{ $schedules }}
+                            @foreach ($schedules as $schedule)
+                                <tr>
+                                    <th>{{ $schedule->subject->name . '-' . $schedule->subject->code }}</th>
+                                    <th>{{ $schedule->room->room_number }}</th>
+                                    <th>{{ $schedule->start_time . ' - ' . $schedule->end_time }}</th>
+                                    <th>{{ $schedule->day }}</th>
+                                    <th>{{ $schedule->year }}</th>
+                                    <!-- <th>
+                                            <a href="{{ route('schedule.edit', ['id' => $schedule->id, 'source' => 'view_schedule_operation']) }}" class="btn btn-sm btn-success text-white">Edit</a>
+                                            <button class="btn btn-sm btn-danger text-white">Delete</button>
+                                        </th> -->
+                                    <th>
+                                        @if($schedule->attended)
+                                            <span class="badge bg-success">Attended</span>
+                                        @else
+                                            <span class="badge bg-danger">
+                                                @if ($schedule->bookedDate)
+                                                    Booked on Incorrect Day
+                                                @else
+                                                    Skipped
+                                                @endif
+                                            </span>
+                                        @endif
 
-                                @foreach ($schedules as $schedule)
-                                    <tr>
-                                        <th>{{ $schedule->subject->name . '-' . $schedule->subject->code }}</th>
-                                        <th>{{ $schedule->room->room_number }}</th>
-                                        <th>{{ $schedule->start_time . ' - ' . $schedule->end_time }}</th>
-                                        <th>{{ $schedule->day }}</th>
-                                        <th>{{ $schedule->semester }}</th>
-                                        <th>{{ $schedule->year }}</th>
-                                    </tr>
-                                @endforeach
+                                        {{ $schedule->bookedDate  }}
+                                    </th>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

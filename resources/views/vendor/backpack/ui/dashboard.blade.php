@@ -12,6 +12,7 @@
             border: 1px solid #CCC;
             margin: 20px auto;
             perspective: 300px;
+            cursor: pointer;
         }
 
         .cube {
@@ -81,7 +82,7 @@
                 @endphp
 
                 <div class="col-lg-3 col-md-3">
-                    <div class="scene">
+                    <div class="scene" onclick="redirect({{ $room->id }})">
                         <div class="cube">
                             <div class="cube__face cube__face--front @if($room->is_occupied) cube__face--occupied @else cube__face--available @endif">
                                 <span class="d-block mt-3">Room {{ $room->room_number }}</span>
@@ -105,4 +106,10 @@
             @endforeach
         </div>
     </div>
+
+    <script>
+        function redirect(room_id) {
+            window.location.href = '/admin/booking?room_id=' + room_id;
+        }
+    </script>
 @endsection
