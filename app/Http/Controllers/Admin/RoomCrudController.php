@@ -46,12 +46,13 @@ class RoomCrudController extends CrudController
         $this->crud->orderBy('room_number', 'DESC');
 
         CRUD::addColumn([
-            'name' => 'room_number',
+            'name' => 'building_number',
+            'label' => 'Building',
             'type' => 'text'
         ]);
 
         CRUD::addColumn([
-            'name' => 'building_number',
+            'name' => 'room_number',
             'type' => 'text'
         ]);
 
@@ -74,7 +75,7 @@ class RoomCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(RoomRequest::class);
-        CRUD::setFromDb(); // set fields from db columns.
+        //CRUD::setFromDb(); // set fields from db columns.
 
         $this->crud->removeField('qr_code_path');
         $this->crud->removeField('is_occupied');

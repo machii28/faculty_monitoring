@@ -44,4 +44,8 @@ Route::middleware([
     Route::get('/{roomId}/bundy', [
         PageController::class, 'bundy'
     ])->name('room.clockIn');
+
+    Route::get('/subjects', [
+        PageController::class, 'subjects'
+    ]);
 });

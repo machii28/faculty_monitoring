@@ -49,6 +49,10 @@ class BookingCrudController extends CrudController
 
         $this->crud->removeAllButtons();
 
+        $this->crud->setColumnDetails('booking_date', [
+            'label' => 'Date'
+        ]);
+
         $this->crud->setColumnDetails('user_id', [
             'type' => 'select',
             'attribute' => 'full_name',

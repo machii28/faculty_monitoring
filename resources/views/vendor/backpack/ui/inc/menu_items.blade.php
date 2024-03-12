@@ -9,3 +9,5 @@
 
 <x-backpack::menu-item title="Schedule Of The Day" icon="la la-clock" :link="backpack_url('schedule_of_the_day')" />
 <x-backpack::menu-item title="Faculties" icon="la la-id-card" :link="backpack_url('faculty')" />
+
+<x-backpack::menu-item title="Report" icon="la la-chart-bar" :link="backpack_url('report')" />

@@ -12,6 +12,11 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
+    public function subjects(Request $request)
+    {
+        return response()->json(Subject::all());
+    }
+
     public function scan(Request $request)
     {
         return view('scan');
