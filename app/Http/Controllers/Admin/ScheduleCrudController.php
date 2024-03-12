@@ -102,9 +102,16 @@ class ScheduleCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        $disabledUser = request()->source === 'view_schedule_operation' ? true : false;
         $userId = request()->has('user_id') ? request()->user_id : null;
         CRUD::setValidation(ScheduleRequest::class);
+
+        $attributes = [];
+
+        if (request()->source === 'view_schedule_operation') {
+            $attributes = [
+                'disabled' => 'disabled'
+            ];
+        }
 
         $this->crud->addField([
             'name' => 'subject_id',
@@ -130,9 +137,7 @@ class ScheduleCrudController extends CrudController
                 return $query->where('role', 'faculty')->get();
             }),
             'default' => $userId,
-            'attributes' => [
-                'disabled' => $disabledUser
-            ]
+            'attributes' => $attributes
         ]);
 
         $this->crud->addField([
