@@ -33,6 +33,7 @@ class RoomCrudController extends CrudController
         CRUD::setModel(\App\Models\Room::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/room');
         CRUD::setEntityNameStrings('room', 'rooms');
+        CRUD::denyAccess('delete');
     }
 
     /**
