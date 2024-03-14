@@ -99,8 +99,6 @@ trait GenerateQRCodeOperation
 
         QrCode::color(7, 34, 209)
             ->style('square')
-//            ->format('png')
-//            ->merge('/public/image/logo.png')
             ->size(500)->generate($roomId, $path . $room->id . '.svg');
 
         $room->qr_code_path = '/qrcodes/' . $room->id . '.svg';
@@ -108,6 +106,6 @@ trait GenerateQRCodeOperation
 
         Alert::success('<strong>Success! </strong> QR Code Generated')->flash();
 
-        return Redirect::back();
+        return Redirect::route('room.index');
     }
 }

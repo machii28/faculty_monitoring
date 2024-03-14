@@ -25,6 +25,8 @@
         <tr>
             <th>Room</th>
             <th>Building</th>
+            <th>Total Number of Seconds</th>
+            <th>Total Number of Minutes</th>
             <th>Total Number of Hours</th>
             <th>Total Number of Attendance</th>
         </tr>
@@ -34,6 +36,8 @@
             <tr>
                 <th>{{ $roomStat->room_name }}</th>
                 <th>{{ $roomStat->building }}</th>
+                <th>{{ $roomStat->total_seconds }}</th>
+                <th>{{ $roomStat->total_minutes }}</th>
                 <th>{{ $roomStat->total_hours }}</th>
                 <th>{{ $roomStat->total_bookings }}</th>
             </tr>

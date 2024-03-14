@@ -32,6 +32,7 @@
             font-weight: bold;
             color: white;
             text-align: center;
+            cursor: pointer;
         }
 
         .cube__face--available   {
@@ -70,6 +71,17 @@
         .cube.is-backface-hidden .cube__face {
             backface-visibility: hidden;
         }
+
+        .cube:hover .custom-tooltip {
+            display: block;
+        }
+
+        .custom-tooltip {
+            display: none;
+            position: absolute;
+            background: rgb(0, 0, 0, 0.5);
+            font-size: 13px;
+        }
     </style>
 
     <div class="container-fluid" style="background: white">
@@ -82,11 +94,11 @@
                 @endphp
 
                 <div class="col-lg-3 col-md-3">
-                    <div class="scene" onclick="redirect({{ $room->id }})">
+                    <div class="scene" @if (!$room->is_occupied) onclick="redirect({{ $room->id }})" @endif>
                         <div class="cube">
                             <div class="cube__face cube__face--front @if($room->is_occupied) cube__face--occupied @else cube__face--available @endif">
                                 <span class="d-block mt-3">Room {{ $room->room_number }}</span>
-                                <span class="d-block">@if ($booking){{ $room->is_occupied ? $booking->user->name : '' }}@endif</span>
+                                <span class="d-block">@if ($booking){{ $room->is_occupied ? $booking->user->full_name : '' }}@endif</span>
                                 <span class="d-block mt-3">
                                     @if ($room->is_occupied)
                                         Occupied
@@ -94,6 +106,12 @@
                                         Available
                                     @endif
                                 </span>
+                                @if($booking)
+                                    <div class="custom-tooltip">
+                                        <span class="d-block">Occupant: {{ $booking->user->full_name }}</span>
+                                        <span class="d-block">Time Occupied: {{ $booking->start_booking_time }}</span>
+                                    </div>
+                                @endif
                             </div>
                             <div class="cube__face cube__face--back @if($room->is_occupied) cube__face--occupied @else cube__face--available @endif"></div>
                             <div class="cube__face cube__face--right @if($room->is_occupied) cube__face--occupied @else cube__face--available @endif"></div>

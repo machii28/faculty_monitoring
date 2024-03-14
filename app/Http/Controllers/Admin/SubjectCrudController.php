@@ -63,7 +63,10 @@ class SubjectCrudController extends CrudController
             'name' => 'code',
             'label' => 'Subject Code',
             'type' => 'select_from_array',
-            'options' => config('subject_codes')
+            'options' => config('subject_codes'),
+            'attributes' => [
+                'id' => 'select_subject_code'
+            ]
         ]);
 
         /**

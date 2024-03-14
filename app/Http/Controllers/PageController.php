@@ -14,7 +14,13 @@ class PageController extends Controller
 {
     public function subjects(Request $request)
     {
-        return response()->json(Subject::all());
+        $subjects = Schedule::join('users', 'users.id', '=', 'schedules.user_id')
+            ->join('subjects', 'subjects.id', '=', 'schedules.subject_id')
+            ->select('subjects.id', 'subjects.name', 'subjects.code')
+            ->where('users.id', auth()->user()->id)
+            ->get();
+
+        return response()->json($subjects);
     }
 
     public function scan(Request $request)
