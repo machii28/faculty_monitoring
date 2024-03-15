@@ -92,6 +92,7 @@
                             @php
                                 $booking = \App\Models\Booking::where('room_id', $room->id)
                                     ->where('booking_date', now()->toDateString())
+                                    ->whereNull('end_booking_time')
                                     ->first();
                             @endphp
 
