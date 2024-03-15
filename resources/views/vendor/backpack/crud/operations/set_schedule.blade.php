@@ -41,7 +41,6 @@
                                 <th>Time</th>
                                 <th>Day</th>
                                 <th>Year Level</th>
-                                <th>Attendance</th>
                                 <!--                                 <th>Action</th> -->
                             </tr>
                             </thead>
@@ -57,21 +56,6 @@
                                             <a href="{{ route('schedule.edit', ['id' => $schedule->id, 'source' => 'view_schedule_operation']) }}" class="btn btn-sm btn-success text-white">Edit</a>
                                             <button class="btn btn-sm btn-danger text-white">Delete</button>
                                         </th> -->
-                                    <th>
-                                        @if($schedule->attended)
-                                            <span class="badge bg-success">Attended</span>
-                                        @else
-                                            <span class="badge bg-danger">
-                                                @if ($schedule->bookedDate)
-                                                    Booked on Incorrect Day
-                                                @else
-                                                    Skipped
-                                                @endif
-                                            </span>
-                                        @endif
-
-                                        {{ $schedule->bookedDate  }}
-                                    </th>
                                 </tr>
                             @endforeach
                             </tbody>

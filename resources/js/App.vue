@@ -125,7 +125,7 @@ export default {
         async bundy(roomId, subjectCode) {
             try {
                 await axios.get(`/${roomId}/bundy?subject=${subjectCode}`).then((response) => {
-                    this.message = response.data.message;
+                    window.alert(response.data.message);
                     this.showModal = false;
                 });
             } catch (error) {

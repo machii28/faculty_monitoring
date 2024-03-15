@@ -33,36 +33,6 @@ class Schedule extends Model
         return $this->attributes['start_time'] . '-' . $this->attributes['end_time'];
     }
 
-    public function getBookedDateAttribute(): string
-    {
-        $startDate = now()->startOfWeek();
-        $endDate = now()->endOfWeek();
-
-        $booking = Booking::whereBetween('booking_date', [$startDate, $endDate])
-            ->where('subject_id', $this->attributes['subject_id'])
-            ->where('room_id', $this->attributes['room_id'])
-            ->first();
-
-        return $booking->booking_date . '(' . Carbon::parse($booking->booking_date)->format('l') . ')' . ' | ' . $booking->start_booking_time . ' - ' . $booking->end_booking_time;
-    }
-
-    public function getAttendedAttribute(): bool
-    {
-        $startDate = now()->startOfWeek();
-        $endDate = now()->endOfWeek();
-
-        $booking = Booking::whereBetween('booking_date', [$startDate, $endDate])
-            ->where('subject_id', $this->attributes['subject_id'])
-            ->where('room_id', $this->attributes['room_id'])
-            ->first();
-
-        if (Carbon::parse($booking->booking_date)->format('l') === $this->attributes['day']) {
-            return true;
-        }
-
-        return false;
-    }
-
     public function subject(): BelongsTo
     {
         return $this->belongsTo(Subject::class, 'subject_id', 'id');

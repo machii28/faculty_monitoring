@@ -10,22 +10,23 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <table class="w-full bg-white shadow-md rounded-lg overflow-hidden">
                     <thead class="bg-gray-800 text-white">
-                        <tr class="text-center">
-                            <th class="px-4 py-2">Subject</th>
-                            <th class="px-4 py-2">Room</th>
-                            <th class="px-4 py-2">Time</th>
-                            <th class="px-4 py-2">Day</th>
-                        </tr>
+                    <tr class="text-center">
+                        <th class="px-4 py-2">Subject</th>
+                        <th class="px-4 py-2">Room</th>
+                        <th class="px-4 py-2">Time</th>
+                        <th class="px-4 py-2">Day</th>
+                    </tr>
                     </thead>
                     <tbody class="text-gray-700">
-                        @foreach ($schedules as $schedule)
-                            <tr class="text-center">
-                                <td class="px-4 py-2">{{ $schedule->subject->name }}</td>
-                                <td class="px-4 py-2">{{ $schedule->room->room_number }} - {{ $schedule->room->building_number }}</td>
-                                <td class="px-4 py-2">{{ $schedule->time }}</td>
-                                <td class="px-4 py-2">{{ $schedule->day }}</td>
-                            </tr>
-                        @endforeach
+                    @foreach ($schedules as $schedule)
+                        <tr class="text-center">
+                            <td class="px-4 py-2">{{ $schedule->subject->name }}</td>
+                            <td class="px-4 py-2">{{ $schedule->room->room_number }}
+                                - {{ $schedule->room->building_number }}</td>
+                            <td class="px-4 py-2">{{ $schedule->time }}</td>
+                            <td class="px-4 py-2">{{ $schedule->day }}</td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
