@@ -95,6 +95,18 @@ class PageController extends Controller
             }
         }
 
+        $isSomeOneAlreadyBooked = Booking::where('room_id', $roomId)
+            ->whereNull('end_booking_time')
+            ->where('booking_date', now()->toDateString())
+            ->first();
+
+        if ($isSomeOneAlreadyBooked) {
+            return response()->json([
+                'message' => 'A Faculty member is still using the room'
+            ]);
+        }
+
+
         $booking = new Booking();
         $booking->booking_date = $day;
         $booking->room_id = $room->id;
