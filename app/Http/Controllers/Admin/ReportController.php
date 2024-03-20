@@ -66,7 +66,8 @@ class ReportController extends Controller
             DB::raw('SUM(TIMESTAMPDIFF(HOUR, STR_TO_DATE(start_booking_time, "%h:%i %p"), STR_TO_DATE(end_booking_time, "%h:%i %p"))) AS total_hours'),
             DB::raw('SUM(TIMESTAMPDIFF(SECOND, STR_TO_DATE(start_booking_time, "%h:%i %p"), STR_TO_DATE(end_booking_time, "%h:%i %p"))) AS total_seconds'),
             DB::raw('SUM(TIMESTAMPDIFF(MINUTE, STR_TO_DATE(start_booking_time, "%h:%i %p"), STR_TO_DATE(end_booking_time, "%h:%i %p"))) AS total_minutes'),
-            DB::raw('COUNT(*) AS total_bookings'))
+            DB::raw('COUNT(*) AS total_bookings'),
+        )
             ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
             ->whereBetween('booking_date', [$startDate, $endDate])
             ->groupBy('room_id')

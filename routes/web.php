@@ -48,4 +48,8 @@ Route::middleware([
     Route::get('/subjects', [
         PageController::class, 'subjects'
     ]);
+
+    Route::get('/submit/leave-request', [
+        PageController::class, 'submitLeaveRequest'
+    ])->name('submit.leave-request');
 });

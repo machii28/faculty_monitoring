@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Attendance;
 use App\Models\Booking;
+use App\Models\LeaveRequest;
 use App\Models\Room;
 use App\Models\Schedule;
 use App\Models\Subject;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class PageController extends Controller
 {
@@ -46,6 +48,18 @@ class PageController extends Controller
         $data['schedules'] = $schedules;
 
         return view('schedules', $data);
+    }
+
+    public function submitLeaveRequest(Request $request)
+    {
+        $leaveRequest = new LeaveRequest();
+
+        $leaveRequest->schedule_id = $request->get('schedule_id');
+        $leaveRequest->date = $request->get('date');
+        $leaveRequest->reason = $request->get('reason');
+        $leaveRequest->save();
+
+        return Redirect::back();
     }
 
     public function bundy($roomId, Request $request)

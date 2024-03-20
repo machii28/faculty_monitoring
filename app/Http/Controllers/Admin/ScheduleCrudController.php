@@ -117,7 +117,10 @@ class ScheduleCrudController extends CrudController
             'name' => 'subject_id',
             'type' => 'select',
             'model' => 'App\Models\Subject',
-            'attribute' => 'name'
+            'attribute' => 'name',
+            'attributes' => [
+                'id' => 'select_subject_code'
+            ]
         ]);
 
         $this->crud->addField([

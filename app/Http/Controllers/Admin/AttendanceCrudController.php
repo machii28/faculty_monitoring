@@ -39,7 +39,7 @@ class AttendanceCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // set columns from db columns.
+        //CRUD::setFromDb(); // set columns from db columns.
 
         $this->crud->removeAllButtons();
 
@@ -47,14 +47,6 @@ class AttendanceCrudController extends CrudController
             'label' => 'User',
             'type' => 'select',
             'model' => 'App\Models\Subject',
-            'attribute' => 'name',
-            'entity' => 'user'
-        ]);
-
-        $this->crud->setColumnDetails('user_id', [
-            'label' => 'User',
-            'type' => 'select',
-            'model' => 'App\Models\User',
             'attribute' => 'name',
             'entity' => 'user'
         ]);

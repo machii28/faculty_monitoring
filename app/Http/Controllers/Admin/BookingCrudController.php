@@ -57,7 +57,10 @@ class BookingCrudController extends CrudController
             'type' => 'select',
             'attribute' => 'full_name',
             'entity' => 'user',
-            'model' => 'App\Models\User'
+            'model' => 'App\Models\User',
+            'searchLogic' => function ($query, $column, $searchTerm) {
+                return $query->join('users', 'users.id', '=', 'bookings.user_id');
+            }
         ]);
 
         $this->crud->setColumnDetails('subject_id', [
