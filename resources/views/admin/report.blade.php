@@ -48,7 +48,7 @@
                                     <th>{{ $roomStat->building }}</th>
                                     <th>{{ $roomStat->total_seconds }}</th>
                                     <th>{{ $roomStat->total_minutes }}</th>
-                                    <th>{{ $roomStat->total_hours }}</th>
+                                    <th>{{ number_format($roomStat->total_minutes / 60, 2) }}</th>
                                     <th>{{ $roomStat->total_bookings }}</th>
                                 </tr>
                             @endforeach

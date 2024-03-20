@@ -56,9 +56,9 @@
                                     <th>
                                         @php
                                             $startDate = now()->startOfWeek();
-                                            $endDate = now()->endOfWeek();
+                                            $endDate = now()->addWeeks(3)->startOfDay();;
 
-                                            $leaveRequest = \App\Models\LeaveRequest::whereBetween('date', [$startDate, $endDate])
+                                            $leaveRequests = \App\Models\LeaveRequest::whereBetween('date', [$startDate, $endDate])
                                                 ->orWhereBetween('date', [$startDate, $endDate])
                                                 ->orWhere(function($query) use ($startDate, $endDate) {
                                                     $query->where('date', '<', $startDate)
@@ -68,8 +68,11 @@
                                                 ->pluck('schedule_id');
                                         @endphp
 
-                                        @if (in_array($schedule->id, $leaveRequest->toArray()))
-                                            <span>Leave: {{ $leaveRequest->reason }}</span>
+                                        @if (in_array($schedule->id, $leaveRequests->toArray()))
+                                            @php
+                                                $leaveRequest = \App\Models\LeaveRequest::where('schedule_id', $schedule->id)->first();
+                                            @endphp
+                                            <span class="bg-danger text-white p-1">Leave: {{ $leaveRequest->reason }} on {{ $leaveRequest->date }}</span>
                                         @endif
                                     </th>
                                     <!-- <th>
